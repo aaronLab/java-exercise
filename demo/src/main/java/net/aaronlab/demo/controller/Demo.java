@@ -14,9 +14,10 @@ public class Demo {
     public HashMap<String, String> get(String apiKey) {
         HashMap<String, String> map = new HashMap<>();
         if (apiKey.equals("qwertyasdf1234")) {
-            map.put("id", apiKey);
+            map.put("apiKey", apiKey);
             map.put("firstName", "Aaron");
             map.put("lastName", "Lee");
+            map.put("age", "98 years old");
             map.put("email", "aaronlab.net@gmail.com");
         }
         return map;
