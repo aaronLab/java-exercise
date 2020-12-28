@@ -2,10 +2,10 @@ package com.example.study.repository;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.User;
-import org.apache.tomcat.jni.Local;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -40,6 +40,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
     }
 
     @Test
+    @Transactional
     public void update() {
         Optional<User> user = userRepository.findById(9L);
 
@@ -53,20 +54,19 @@ public class UserRepositoryTest extends StudyApplicationTests {
     }
 
     @Test
+    @Transactional
     public void delete() {
-        Optional<User> user = userRepository.findById(8L);
+        Optional<User> user = userRepository.findById(12L);
+
+        Assertions.assertTrue(user.isPresent());  // true
 
         user.ifPresent(selectedUser -> {
-            userRepository.deleteById(8L);
+            userRepository.deleteById(12L);
         });
 
         Optional<User> deletedUser = userRepository.findById(8L);
 
-        if (deletedUser.isPresent()) {
-            System.out.println("Not Deleted" + deletedUser.get());
-        } else {
-            System.out.println("Deleted");
-        }
+        Assertions.assertFalse(deletedUser.isPresent());  // false
     }
 
 }
