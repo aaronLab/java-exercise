@@ -52,7 +52,21 @@ public class UserRepositoryTest extends StudyApplicationTests {
         });
     }
 
+    @Test
     public void delete() {
+        Optional<User> user = userRepository.findById(8L);
+
+        user.ifPresent(selectedUser -> {
+            userRepository.deleteById(8L);
+        });
+
+        Optional<User> deletedUser = userRepository.findById(8L);
+
+        if (deletedUser.isPresent()) {
+            System.out.println("Not Deleted" + deletedUser.get());
+        } else {
+            System.out.println("Deleted");
+        }
     }
 
 }
