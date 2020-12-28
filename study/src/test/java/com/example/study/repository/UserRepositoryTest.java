@@ -2,10 +2,13 @@ package com.example.study.repository;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.User;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class UserRepositoryTest extends StudyApplicationTests {
 
@@ -26,16 +29,30 @@ public class UserRepositoryTest extends StudyApplicationTests {
         System.out.println("newUser " + newUser);
     }
 
+    @Test
     public void read() {
+        Optional<User> user = userRepository.findById(9L);
+
+        user.ifPresent(selectedUser -> {
+            System.out.println("user: " + selectedUser);
+        });
 
     }
 
+    @Test
     public void update() {
+        Optional<User> user = userRepository.findById(9L);
 
+        user.ifPresent(selectedUser -> {
+            selectedUser.setAccount("This is USER 9");
+            selectedUser.setUpdatedAt(LocalDateTime.now());
+            selectedUser.setUpdatedBy("update method");
+
+            userRepository.save(selectedUser);
+        });
     }
 
     public void delete() {
-
     }
 
 }
